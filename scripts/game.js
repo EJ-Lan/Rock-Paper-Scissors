@@ -43,6 +43,15 @@ let getPlayerSelection = () => {
 
 }
 
-let playRound = (getPlayerSelection, getComputerChoice) => {
+const playerSelection = getPlayerSelection();
+const computerSelection = getComputerChoice();
 
+let playRound = (playerSelection, computerSelection) => {
+    let tie = false;
+
+    while (!tie) {
+        if (playerSelection === "ROCK" && computerSelection) {
+            
+        }
+    }
 }
