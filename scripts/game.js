@@ -44,7 +44,6 @@ let getPlayerSelection = () => {
 }
 
 let playRound = (playerSelection, computerSelection) => {
-    win = false;
     while (true) { 
         if (playerSelection === computerSelection) {
             console.log(`Tie! Both selected ${playerSelection}. Choose again.`);
@@ -53,10 +52,11 @@ let playRound = (playerSelection, computerSelection) => {
         } else if ((playerSelection === "ROCK" && computerSelection === "SCISSORS") 
             || (playerSelection === "SCISSORS" && computerSelection === "PAPER")
             || (playerSelection === "PAPER" && computerSelection === "ROCK")) {
-            win = true;
-            return `You Win! ${playerSelection} beats ${computerSelection}.`, win; 
+            console.log(`You Win! ${playerSelection} beats ${computerSelection}.`);
+            return true;
         } else {
-            return `You Lose! ${computerSelection} beats ${playerSelection}.`, win; 
+            console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
+            return false;
         }
     }
 }
@@ -68,7 +68,7 @@ let game = () => {
     for (let i = 0; i < 5; i++) {
         const playerSelection = getPlayerSelection();
         const computerSelection = getComputerChoice();
-        win = playRound(playerSelection, computerSelection)
+        let win = playRound(playerSelection, computerSelection)
         if (win) {
             userScore++;
         } else {
