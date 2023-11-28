@@ -2,7 +2,7 @@ let getComputerChoice = () => {
     choice = Math.floor(Math.random() * 3);
 
     let computerSelection;
-    
+
     switch (choice) {
         case 0:
             computerSelection = "Rock";
@@ -15,9 +15,34 @@ let getComputerChoice = () => {
             break;
     }
 
-    return computerSelection;
+    return computerSelection.toUpperCase();
 }
 
-let playRound = (playerSelection, computerSelection) => {
+let getPlayerSelection = () => {
+    let playerSelection = prompt("Enter Selection: ");
+
+    let validSelection = false;
+
+    while (!validSelection) {
+        switch (playerSelection.toUpperCase()) {
+            case "ROCK":
+                validSelection = true;
+                break;
+            case "PAPER":
+                validSelection = true;
+                break;
+            case "SCISSORS":
+                validSelection = true;
+                break;
+            default:
+                console.log("Invalid Selection Try Again");
+        }
+    }
+
+    return playerSelection.toUpperCase();
+
+}
+
+let playRound = (getPlayerSelection, getComputerChoice) => {
 
 }
