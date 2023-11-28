@@ -1,5 +1,5 @@
 let getComputerChoice = () => {
-    choice = Math.floor(Math.random() * 3);
+    let choice = Math.floor(Math.random() * 3);
 
     let computerSelection;
 
@@ -19,11 +19,11 @@ let getComputerChoice = () => {
 }
 
 let getPlayerSelection = () => {
-    let playerSelection = prompt("Enter Selection: ");
-
+    let playerSelection; 
     let validSelection = false;
 
     while (!validSelection) {
+        playerSelection = prompt("Enter Selection: ");
         switch (playerSelection.toUpperCase()) {
             case "ROCK":
                 validSelection = true;
@@ -36,22 +36,28 @@ let getPlayerSelection = () => {
                 break;
             default:
                 console.log("Invalid Selection Try Again");
+                break;
         }
     }
 
     return playerSelection.toUpperCase();
-
 }
 
 const playerSelection = getPlayerSelection();
 const computerSelection = getComputerChoice();
 
 let playRound = (playerSelection, computerSelection) => {
-    let tie = false;
-
-    while (!tie) {
-        if (playerSelection === "ROCK" && computerSelection) {
-            
+    while (true) { 
+        if (playerSelection === computerSelection) {
+            console.log(`Tie! Both selected ${playerSelection}. Choose again.`);
+            playerSelection = getPlayerSelection();
+            computerSelection = getComputerChoice();
+        } else if ((playerSelection === "ROCK" && computerSelection === "SCISSORS") 
+            || (playerSelection === "SCISSORS" && computerSelection === "PAPER")
+            || (playerSelection === "PAPER" && computerSelection === "ROCK")) {
+            return `You Win! ${playerSelection} beats ${computerSelection}.`; 
+        } else {
+            return `You Lose! ${computerSelection} beats ${playerSelection}.`; 
         }
     }
 }
