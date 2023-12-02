@@ -61,26 +61,49 @@ let playRound = (playerSelection, computerSelection) => {
     }
 }
 
-let game = () => {
-    let userScore = 0;
-    let computerScore = 0;
+const buttons = document.querySelectorAll('.selection-button');
 
-    for (let i = 0; i < 5; i++) {
-        const playerSelection = getPlayerSelection();
-        const computerSelection = getComputerChoice();
-        let win = playRound(playerSelection, computerSelection)
-        if (win) {
-            userScore++;
-        } else {
-            computerScore++;
-        }
+buttons.forEach(button => {
+    let buttonId = button.id;
+    let playerSelection;
+
+    switch (buttonId) {
+        case "rock-button":
+            playerSelection = "ROCK";
+            break;
+        case "paper-button":
+            playerSelection = "PAPER";
+            break;
+        case "scissor-button":
+            playerSelection = "SCISSORS";
+            break;
     }
 
-    if (userScore > computerScore) {
-        console.log(`User Wins!`)
-    } else {
-        console.log(`Computer Wins`)
-    }
-}
+    button.addEventListener('click', () => {
+        playRound(playerSelection, computerSelection);
+    });
+});
 
-game();
+// let game = () => {
+//     let userScore = 0;
+//     let computerScore = 0;
+
+//     for (let i = 0; i < 5; i++) {
+//         const playerSelection = getPlayerSelection();
+//         const computerSelection = getComputerChoice();
+//         let win = playRound(playerSelection, computerSelection)
+//         if (win) {
+//             userScore++;
+//         } else {
+//             computerScore++;
+//         }
+//     }
+
+//     if (userScore > computerScore) {
+//         console.log(`User Wins!`)
+//     } else {
+//         console.log(`Computer Wins`)
+//     }
+// }
+
+// game();
