@@ -1,13 +1,25 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f5f5f5; /* Soft gray background */
     text-align: center;
-    color: #333;
+    color: #333; /* Dark gray text */
 }
 
 .score {
     font-size: 24px;
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.score p {
+    background-color: #fff; /* White background for score */
+    border: 2px solid #ddd; /* Light gray border */
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    margin: 10px;
 }
 
 .selection-container {
@@ -18,16 +30,16 @@ body {
     font-size: 40px;
     padding: 10px 20px;
     margin: 10px;
-    border: none;
+    border: 2px solid #ddd; /* Light gray border */
     border-radius: 10px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #fff; /* White background */
+    color: #333; /* Dark gray text */
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .selection-button:hover {
-    background-color: #45a049;
+    background-color: #e0e0e0; /* Light gray on hover */
 }
 
 .round-results, .winner {
@@ -36,17 +48,41 @@ body {
 }
 
 .winner p {
-    color: #D32F2F;
+    color: #1a8cff; /* Soft blue */
     font-weight: bold;
 }
 
-#user-score, #computer-score {
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-    line-height: 100px;
-    border-radius: 50%;
-    background-color: #2196F3;
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+.play-again-btn {
+    background-color: #1a8cff; /* Soft blue */
     color: white;
+    padding: 10px 20px;
     margin: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.play-again-btn:hover {
+    background-color: #0077e6; /* Darker blue on hover */
 }

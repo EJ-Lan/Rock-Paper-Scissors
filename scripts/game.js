@@ -49,7 +49,7 @@ buttons.forEach(button => {
             case "paper-button":
                 playerSelection = "PAPER";
                 break;
-            case "scissor-button": // Make sure this matches the ID in your HTML
+            case "scissor-button":
                 playerSelection = "SCISSORS";
                 break;
             default:
@@ -91,12 +91,32 @@ const displayWinner = () => {
         winnerText.textContent = 'It\'s a Tie!';
     }
     document.querySelector('.winner').appendChild(winnerText);
+
+    // Show play again modal
+    document.getElementById('play-again-modal').style.display = 'block';
 };
 
 const disableButtons = () => {
     buttons.forEach(button => {
         button.disabled = true;
     });
+};
+
+document.getElementById('play-again-button').addEventListener('click', () => {
+    resetGame();
+});
+
+const resetGame = () => {
+    userScore = 0;
+    computerScore = 0;
+    roundsPlayed = 0;
+    updateScoreDisplay();
+    document.querySelector('.round-results').innerHTML = '';
+    document.querySelector('.winner').innerHTML = '';
+    buttons.forEach(button => {
+        button.disabled = false;
+    });
+    document.getElementById('play-again-modal').style.display = 'none';
 };
 
 // Initialize scores
