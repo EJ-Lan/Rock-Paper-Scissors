@@ -1,109 +1,103 @@
-let getComputerChoice = () => {
-    let choice = Math.floor(Math.random() * 3);
+let userScore = 0;
+let computerScore = 0;
+let roundsPlayed = 0;
+const totalRounds = 5;
+const choiceToEmoji = {
+    "ROCK": "⛰️",
+    "PAPER": "📝",
+    "SCISSORS": "✂️"
+};
 
-    let computerSelection;
+const getComputerChoice = () => {
+    let choices = ["ROCK", "PAPER", "SCISSORS"];
+    return choices[Math.floor(Math.random() * 3)];
+};
 
-    switch (choice) {
-        case 0:
-            computerSelection = "Rock";
-            break;
-        case 1:
-            computerSelection = "Paper";
-            break;
-        case 2:
-            computerSelection = "Scissors";
-            break;
+const playRound = (playerSelection, computerSelection) => {
+    if (playerSelection === computerSelection) {
+        return 0; // Tie
+    } else if ((playerSelection === "ROCK" && computerSelection === "SCISSORS") 
+               || (playerSelection === "SCISSORS" && computerSelection === "PAPER")
+               || (playerSelection === "PAPER" && computerSelection === "ROCK")) {
+        return 1; // Player wins
+    } else {
+        return -1; // Computer wins
     }
+};
 
-    return computerSelection.toUpperCase();
-}
-
-let getPlayerSelection = () => {
-    let playerSelection; 
-    let validSelection = false;
-
-    while (!validSelection) {
-        playerSelection = prompt("Enter Selection: ");
-        switch (playerSelection.toUpperCase()) {
-            case "ROCK":
-                validSelection = true;
-                break;
-            case "PAPER":
-                validSelection = true;
-                break;
-            case "SCISSORS":
-                validSelection = true;
-                break;
-            default:
-                console.log("Invalid Selection Try Again");
-                break;
-        }
-    }
-
-    return playerSelection.toUpperCase();
-}
-
-let playRound = (playerSelection, computerSelection) => {
-    while (true) { 
-        if (playerSelection === computerSelection) {
-            console.log(`Tie! Both selected ${playerSelection}. Choose again.`);
-            playerSelection = getPlayerSelection();
-            computerSelection = getComputerChoice();
-        } else if ((playerSelection === "ROCK" && computerSelection === "SCISSORS") 
-            || (playerSelection === "SCISSORS" && computerSelection === "PAPER")
-            || (playerSelection === "PAPER" && computerSelection === "ROCK")) {
-            console.log(`You Win! ${playerSelection} beats ${computerSelection}.`);
-            return true;
-        } else {
-            console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
-            return false;
-        }
-    }
-}
+const displayRoundResult = (playerSelection, computerSelection, result) => {
+    let roundResult = document.querySelector('.round-results');
+    roundResult.innerHTML = ''; // Clear previous results
+    let resultText = document.createElement('p');
+    resultText.textContent = `You chose ${choiceToEmoji[playerSelection]}, Computer chose ${choiceToEmoji[computerSelection]}. `;
+    if (result === 0) resultText.textContent += 'It\'s a tie!';
+    else if (result === 1) resultText.textContent += 'You win!';
+    else resultText.textContent += 'You lose!';
+    roundResult.appendChild(resultText);
+};
 
 const buttons = document.querySelectorAll('.selection-button');
-
 buttons.forEach(button => {
-    let buttonId = button.id;
-    let playerSelection;
-
-    switch (buttonId) {
-        case "rock-button":
-            playerSelection = "ROCK";
-            break;
-        case "paper-button":
-            playerSelection = "PAPER";
-            break;
-        case "scissor-button":
-            playerSelection = "SCISSORS";
-            break;
-    }
-
     button.addEventListener('click', () => {
-        playRound(playerSelection, computerSelection);
+        if (roundsPlayed >= totalRounds) return; // Stop if 5 rounds are played
+
+        let playerSelection;
+        switch (button.id) {
+            case "rock-button":
+                playerSelection = "ROCK";
+                break;
+            case "paper-button":
+                playerSelection = "PAPER";
+                break;
+            case "scissor-button": // Make sure this matches the ID in your HTML
+                playerSelection = "SCISSORS";
+                break;
+            default:
+                playerSelection = null; // Handle unexpected cases
+        }
+
+        if (playerSelection) {
+            let computerSelection = getComputerChoice();
+            let result = playRound(playerSelection, computerSelection);
+
+            displayRoundResult(playerSelection, computerSelection, result);
+
+            if (result === 1) userScore++;
+            else if (result === -1) computerScore++;
+
+            roundsPlayed++;
+            updateScoreDisplay();
+
+            if (roundsPlayed === totalRounds) {
+                displayWinner();
+                disableButtons();
+            }
+        }
     });
 });
 
-// let game = () => {
-//     let userScore = 0;
-//     let computerScore = 0;
+const updateScoreDisplay = () => {
+    document.querySelector('#user-score').textContent = userScore;
+    document.querySelector('#computer-score').textContent = computerScore;
+};
 
-//     for (let i = 0; i < 5; i++) {
-//         const playerSelection = getPlayerSelection();
-//         const computerSelection = getComputerChoice();
-//         let win = playRound(playerSelection, computerSelection)
-//         if (win) {
-//             userScore++;
-//         } else {
-//             computerScore++;
-//         }
-//     }
+const displayWinner = () => {
+    let winnerText = document.createElement('p');
+    if (userScore > computerScore) {
+        winnerText.textContent = 'You Win!';
+    } else if (userScore < computerScore) {
+        winnerText.textContent = 'Computer Wins!';
+    } else {
+        winnerText.textContent = 'It\'s a Tie!';
+    }
+    document.querySelector('.winner').appendChild(winnerText);
+};
 
-//     if (userScore > computerScore) {
-//         console.log(`User Wins!`)
-//     } else {
-//         console.log(`Computer Wins`)
-//     }
-// }
+const disableButtons = () => {
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+};
 
-// game();
+// Initialize scores
+updateScoreDisplay();
