@@ -1,3 +1,52 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+    color: #333;
+}
+
+.score {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.selection-container {
+    margin-top: 50px;
+}
+
+.selection-button {
+    font-size: 40px;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.selection-button:hover {
+    background-color: #45a049;
+}
+
+.round-results, .winner {
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.winner p {
+    color: #D32F2F;
+    font-weight: bold;
+}
+
+#user-score, #computer-score {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    border-radius: 50%;
+    background-color: #2196F3;
+    color: white;
+    margin: 10px;
 }
