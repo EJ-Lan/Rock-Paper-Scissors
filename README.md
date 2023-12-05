@@ -21,5 +21,5 @@ This project is a simple, web-based Rock-Paper-Scissors game. Players can enjoy 
 To play the Rock-Paper-Scissors game, you just need to clone this repository and open the `index.html` file in a web browser.
 
 ```bash
-git clone [repository-url]
+git clone git@github.com:EJ-Lan/Rock-Paper-Scissors.git
 
